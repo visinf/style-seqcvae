@@ -1,0 +1,71 @@
+RANDOM_SEED: 2
+
+DATA:
+  VOCABULARY: /path/to/vocabulary
+
+  TRAIN_FEATURES: /path/to/image/features.h5
+  INFER_FEATURES: /path/to/image/features.h5
+  
+  TRAIN_CAPTIONS: /path/to/image/captions.json
+  INFER_CAPTIONS: /path/to/image/captions.json
+  
+  
+  # if SENTICAP_CAPTIONS path is set and DO_LOAD_SENTICAP is set to false, Senticap test samples are rautomatically removed from TRAIN_CAPTIONS
+  #SENTICAP_CAPTIONS: /path/to/senticap/captions.json
+  DO_LOAD_COCO: True
+  DO_LOAD_SENTICAP: False
+  SENTICAP_SENTIMENT: "neg"
+
+  #if COCO_ATTRIBS_OBJS is set only samples for which attributes exist are loaded.
+  COCO_ATTRIBS_OBJS: /path/to/COCOAttributes/obj/folder
+  REMOVE_SAMPLES_WITHOUT_ATTRIBS: True
+  USE_OBJ_ATT_PREDS: True
+  ATT_PRED_THRESH: 0.3
+
+
+  MAX_CAPTION_LENGTH: 20
+
+  CBS:
+    INFER_BOXES: /path/to/boxes.json
+    CLASS_HIERARCHY: /path/to/class_hierarchy.json
+    
+    WORDFORMS_ATTRIBS: /path/to/attrib_wordforms.tsv    
+    WORDFORMS: /path/to/obj_wordforms.tsv
+    
+    MAX_GIVEN_OBJECTS: 0
+    MAX_GIVEN_CONSTRAINTS: 0
+    MAX_WORDS_PER_CONSTRAINT: 3
+    NMS_THRESHOLD: 0.85
+
+
+MODEL:
+  IMAGE_FEATURE_SIZE: 2048
+  EMBEDDING_SIZE: 600
+  HIDDEN_SIZE: 900
+  ATTENTION_PROJECTION_SIZE: 768
+  BEAM_SIZE: 1
+  USE_CBS: True
+  CBS_SIMPLE: True
+  MIN_CONSTRAINTS_TO_SATISFY: 0
+  
+  Z_SPACE: 150
+  KLD_WEIGHT: 750     #450
+  SENTIMENT_VAE: 1
+  SENTI_PRIOR_MULTIP: 0.5
+  LATENT_EMBEDDING_MULTIP: 1.0
+  PRIOR_STD: 1.0 #so far not for vanilla VAE
+  SIMPLE_VAE: False
+  N_Z_SAMPLES: 20
+  STATE_MACHINE_PER_Z_SAMPLE: True
+  LATENT_EMBEDDING: glove  # senti_word_net
+
+OPTIM:
+  BATCH_SIZE: 150
+  NUM_ITERATIONS: 70000
+  LR: 0.015
+  MOMENTUM: 0.9
+  WEIGHT_DECAY: 0.001
+  CLIP_GRADIENTS: 12.5
+  
+  EPOCH_START_DECODER_TRAINING: 40000
+  BEFORE_UPDATE_DECODER_EVERY: 30
